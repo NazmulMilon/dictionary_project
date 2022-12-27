@@ -1,7 +1,18 @@
+from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
-# Create your models here.
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, help_text='user name')
+    first_name = models.CharField(max_length=100, help_text='user first name')
+    last_name = models.CharField(max_length=100, help_text='user last name')
+    phone = models.IntegerField(default=False)
+    date_of_birth = models.DateField(auto_now=False)
+
+    def __str__(self):
+        return str(self.user)
+
 
 class Word(models.Model):
     word_name = models.CharField(max_length=100, help_text='word name')
@@ -20,3 +31,5 @@ class Meaning(models.Model):
 
     # def __str__(self):
     #     return self.word_name
+
+
