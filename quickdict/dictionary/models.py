@@ -5,8 +5,6 @@ from django.db import models
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, help_text='user name')
-    first_name = models.CharField(max_length=100, help_text='user first name')
-    last_name = models.CharField(max_length=100, help_text='user last name')
     phone = models.IntegerField(default=False)
     date_of_birth = models.DateField(auto_now=False)
 

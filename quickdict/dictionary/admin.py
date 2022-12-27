@@ -20,7 +20,7 @@ admin.site.register(Meaning, MeaningAdmin)
 
 
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ['user', 'first_name', 'last_name', 'phone', 'date_of_birth']
+    list_display = ['user', 'phone', 'date_of_birth']
 
 
 admin.site.register(UserProfile, UserProfileAdmin)
