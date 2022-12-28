@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Word, Meaning, UserProfile
+from .models import Word, Meaning
 
 
 # Register your models here.
@@ -18,9 +18,3 @@ class MeaningAdmin(admin.ModelAdmin):
 
 admin.site.register(Meaning, MeaningAdmin)
 
-
-class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ['user', 'phone', 'date_of_birth']
-
-
-admin.site.register(UserProfile, UserProfileAdmin)
