@@ -8,8 +8,8 @@ class Word(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, help_text='word created time added')
     updated_at = models.DateTimeField(auto_now=True, help_text='word name updated time')
 
-    def __str__(self):
-        return self.word_name
+    class Meta:
+        db_table = 'words'
 
 
 class Meaning(models.Model):
@@ -18,7 +18,7 @@ class Meaning(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, help_text='word meaning created time')
     updated_at = models.DateTimeField(auto_now=True, help_text='word meaning updated time')
 
-    # def __str__(self):
-    #     return self.word_name
+    class Meta:
+        db_table = 'meanings'
 
 
