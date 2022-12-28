@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.request import Request
 from rest_framework import status
 from django.db import transaction
-
+from django.contrib.auth.hashers import make_password
 # Create your views here.
 
 
@@ -28,7 +28,7 @@ class UserProfileCreateView(CreateAPIView):
         if User.objects.filter(username=username).exists():
             return Response(data={'details': 'User name already exists. '}, status=status.HTTP_406_NOT_ACCEPTABLE)
         user = User(first_name=first_name, last_name=last_name, username=username, email=email,
-                    password=password)
+                    password=make_password(password))
         user.save()
 
         user_profile = UserProfile(phone_number=phone_number, date_of_birth=date_of_birth, user=user)
