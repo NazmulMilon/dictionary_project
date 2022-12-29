@@ -18,7 +18,7 @@ class Meaning(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, help_text='word meaning created time')
     updated_at = models.DateTimeField(auto_now=True, help_text='word meaning updated time')
 
-    class Meta:
-        db_table = 'meanings'
-
-
+    # class Meta:
+    #     db_table = 'meanings'
+    def __str__(self):
+        return str(self.word_name)
