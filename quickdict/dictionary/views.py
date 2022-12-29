@@ -8,6 +8,7 @@ from rest_framework import status
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView
 from rest_framework.validators import ValidationError
 
+
 class WordCreateAPIView(CreateAPIView):
     serializer_class = WordSerializer
 
@@ -28,8 +29,8 @@ class WordListAPIView(ListAPIView):
 
     def get(self, request, *args, **kwargs):
         queryset = Word.objects.all()
-        serialize = WordSerializer(queryset, many=True)
-        return Response(serialize.data, status=status.HTTP_200_OK)
+        serializer = WordSerializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class WordRetrieveAPIView(RetrieveAPIView):
@@ -37,8 +38,45 @@ class WordRetrieveAPIView(RetrieveAPIView):
     queryset = Word.objects.all()
 
     def get(self, request, *args, **kwargs):
-        word_name = self.queryset.filter(pk=kwargs['pk']).first()
-        if word_name is None:
+        word_object = self.queryset.get(pk=kwargs['pk'])
+        if word_object is None:
             return Response({'details': 'No word in the dictionary. '}, status=status.HTTP_404_NOT_FOUND)
-        serialize = WordSerializer(word_name)
-        return Response(serialize.data, status=status.HTTP_200_OK)
+        serializer = WordSerializer(word_object)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class MeaningCreateAPIView(CreateAPIView):
+    queryset = Meaning.objects.all()
+    serializer_class = MeaningSerializer
+
+    def post(self, request, *args, **kwargs):
+        data = request.data
+        serializer = MeaningSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+# class MeaningsOfWordRetrieveAPIView()
+class MeaningListAPIView(ListAPIView):
+    queryset = Meaning.objects.all()
+    serializer_class = MeaningSerializer
+
+    def get(self, request, *args, **kwargs):
+        queryset = Meaning.objects.all()
+        serializer = MeaningSerializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class MeaningRetrieveAPIView(RetrieveAPIView):
+    serializer_class = MeaningSerializer
+    queryset = Meaning.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        meaning_obj = self.queryset.get(pk=kwargs['pk'])
+        serializer = MeaningSerializer(meaning_obj, many=False)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+

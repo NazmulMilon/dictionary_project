@@ -13,12 +13,11 @@ class Word(models.Model):
 
 
 class Meaning(models.Model):
-    word_name = models.ForeignKey(Word, on_delete=models.CASCADE, help_text='Word name for meaning')
+    word = models.ForeignKey(Word, on_delete=models.CASCADE, help_text='Word name for meaning')
     meanings = models.CharField(max_length=200, help_text='meanings of words')
     created_at = models.DateTimeField(auto_now_add=True, help_text='word meaning created time')
     updated_at = models.DateTimeField(auto_now=True, help_text='word meaning updated time')
 
-    # class Meta:
-    #     db_table = 'meanings'
-    def __str__(self):
-        return str(self.word_name)
+    class Meta:
+        db_table = 'meanings'
+

@@ -5,7 +5,7 @@ from .models import Word, Meaning
 # Register your models here.
 
 class WordAdmin(admin.ModelAdmin):
-    list_display = ['word_name', 'created_at', 'updated_at']
+    list_display = ('word_name', 'created_at', 'updated_at')
 
 
 admin.site.register(Word, WordAdmin)
@@ -13,7 +13,7 @@ admin.site.register(Word, WordAdmin)
 
 class MeaningAdmin(admin.ModelAdmin):
 
-    list_display = ['meanings', 'created_at', 'updated_at']
+    list_display = ('meanings', 'created_at', 'updated_at')
 
 
 admin.site.register(Meaning, MeaningAdmin)
