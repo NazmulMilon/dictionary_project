@@ -12,3 +12,11 @@ class MeaningSerializer(ModelSerializer):
     class Meta:
         model = Meaning
         exclude = ['created_at', 'updated_at']
+
+
+class WordMeaningCreationSerializer(ModelSerializer):
+    meanings = MeaningSerializer(many=True)
+
+    class Meta:
+        model = Word
+        exclude = ['created_at', 'updated_at']
