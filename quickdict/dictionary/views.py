@@ -7,11 +7,13 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView
 from rest_framework.validators import ValidationError
+from drf_yasg.utils import swagger_auto_schema
 
 
 class WordCreateAPIView(CreateAPIView):
     serializer_class = WordSerializer
 
+    @swagger_auto_schema(tags=["Word Module"])
     def post(self, request, *args, **kwargs):
         data = request.data
         word_name = data.get('word_name', None)
@@ -27,6 +29,7 @@ class WordListAPIView(ListAPIView):
     serializer_class = WordSerializer
     queryset = Word.objects.all()
 
+    @swagger_auto_schema(tags=["Word Module"])
     def get(self, request, *args, **kwargs):
         queryset = Word.objects.all()
         serializer = WordSerializer(queryset, many=True)
@@ -37,6 +40,7 @@ class WordRetrieveAPIView(RetrieveAPIView):
     serializer_class = WordSerializer
     queryset = Word.objects.all()
 
+    @swagger_auto_schema(tags=["Word Module"])
     def get(self, request, *args, **kwargs):
         word_object = self.queryset.get(pk=kwargs['pk'])
         if word_object is None:
@@ -62,6 +66,7 @@ class MeaningListAPIView(ListAPIView):
     queryset = Meaning.objects.all()
     serializer_class = MeaningSerializer
 
+    @swagger_auto_schema(tags=["Meaning Module"])
     def get(self, request, *args, **kwargs):
         queryset = Meaning.objects.all()
         serializer = MeaningSerializer(queryset, many=True)
@@ -72,6 +77,7 @@ class MeaningRetrieveAPIView(RetrieveAPIView):
     serializer_class = MeaningSerializer
     queryset = Meaning.objects.all()
 
+    @swagger_auto_schema(tags=["Meaning Module"])
     def get(self, request, *args, **kwargs):
         meaning_obj = self.queryset.get(pk=kwargs['pk'])
         serializer = MeaningSerializer(meaning_obj, many=False)
@@ -82,6 +88,7 @@ class MeaningCreateAPIView(CreateAPIView):
     serializer_class = WordMeaningCreationSerializer
     queryset = Meaning.objects.all()
 
+    @swagger_auto_schema(tags=["Meaning Module"])
     def post(self, request, *args, **kwargs):
         data = request.data
         word_name = data.get('word_name', None)
@@ -107,6 +114,7 @@ class WordMeaningSearch(ListAPIView):
     serializer_class = MeaningSerializer
     queryset = Word.objects.all()
 
+    @swagger_auto_schema(tags=["Word And Meaning List"])
     def get(self, request, *args, **kwargs):
         word = kwargs['word_name']
         meaning_queryset = Meaning.objects.filter(word__word_name=word)

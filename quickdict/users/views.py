@@ -8,6 +8,7 @@ from rest_framework.request import Request
 from rest_framework import status
 from django.db import transaction
 from django.contrib.auth.hashers import make_password
+from drf_yasg.utils import swagger_auto_schema
 # Create your views here.
 
 
@@ -15,6 +16,7 @@ class UserProfileCreateView(CreateAPIView):
     serializer_class = UserProfileSerializer
 
     @transaction.atomic
+    @swagger_auto_schema(tags=["User"])
     def post(self, request, *args, **kwargs):
         data = request.data
         first_name = data.get('first_name', None)
