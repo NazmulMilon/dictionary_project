@@ -58,7 +58,6 @@ class WordRetrieveAPIView(RetrieveAPIView):
 #         return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-# class MeaningsOfWordRetrieveAPIView()
 class MeaningListAPIView(ListAPIView):
     queryset = Meaning.objects.all()
     serializer_class = MeaningSerializer
