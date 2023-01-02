@@ -101,7 +101,16 @@ class MeaningCreateAPIView(CreateAPIView):
             meaning_obj = Meaning(word_id=word_obj.id, meanings=meaning)
             meaning_obj.save()
 
-        return Response(data="Accepted", status=status.HTTP_201_CREATED)
+        return Response(data="Meaning Created. ", status=status.HTTP_201_CREATED)
 
 
+class WordMeaningSearch(ListAPIView):
+    serializer_class = MeaningSerializer
+    queryset = Word.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        word = kwargs['word_name']
+        meaning_queryset = Meaning.objects.filter(word__word_name=word)
+        serializer = MeaningSerializer(meaning_queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
