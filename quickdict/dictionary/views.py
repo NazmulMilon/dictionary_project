@@ -120,4 +120,3 @@ class WordMeaningSearch(ListAPIView):
         meaning_queryset = Meaning.objects.filter(word__word_name=word)
         serializer = MeaningSerializer(meaning_queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-
